@@ -75,10 +75,12 @@ a = c \text { and } b = d
 [stem]
 ++++
 {{{a} \over {b}} \over {{c} \over {d}}} = {{ad} \over {bc}}\\
+{{{a} \over {b}} \over {{c} \over {d}}} = {{a} \over {b}} \times {\left({{c} \over {d}}\right)}^{-1} = {{a} \over {b}} \times {{d} \over {c}}\\
+\text {단, } c \neq 0
 \text {단, } c \neq 0
 ++++
 * inverse
-** additive inverse(inverse)
+** additive inverse(opposite)
 +
 [stem]
 ++++

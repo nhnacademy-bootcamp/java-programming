@@ -32,10 +32,7 @@
 * 분자, 분모를 얻어 온다.
 * equality
 +
-[stem]
-++++
-{{a} \over {b}} = {{c} \over {d}} \text {는 } ad = bc
-++++
+stem:[{{a} \over {b}} = {{c} \over {d}} \text {는 } ad = bc]
 +
 or
 +

@@ -1,0 +1,29 @@
+:stem: latexmath
+
+
+= 1-2. Lint
+
+* https://code.visualstudio.com/docs/java/java-linting[Java Linting]
+
+== Static Analysis(정적 분석)
+
+* 소스 코드의 실행 없이 정적으로 프로그램의 문제를 찾는 과정
+
+**Tool**
+
+* CheckStyle
+* SonarLint
+
+== Code Style
+
+* 코드 작성 규칙
+* 팀원들간 정하는 규칙
+* 반드시 지켜야 하는 것인 아니지만, 원할한 프로젝트 진행과 유지 보수를 위해서는 필수
+
+
+**잘 알려진 code style**
+
+* https://google.github.io/styleguide[Google Code Style]
+* https://www.oracle.com/java/technologies/javase/codeconventions-contents.html[Oracle Code Convention]
+
+

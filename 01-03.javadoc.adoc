@@ -1,0 +1,219 @@
+= 1-3. Javadoc 소개
+
+* **작성자: baeldung**
+* **검토자: Zenko**
+
+
+== 1. 개요
+
+* 좋은 API 문서는 소프트웨어 프로젝트 성공에 기여하는 여러 요소 중 하나
+
+Javadoc 사용을 위한 조건:
+
+1. JDK 1.4 (최신 버전의 Maven Javadoc 플러그인을 위해 JDK 7+ 권장)
+2. PATH 환경 변수에 JDK /bin 폴더 추가
+3. (선택 사항) 내장 도구가 포함된 IDE
+
+== 2. Javadoc 주석
+
+* Javadoc 주석 구조는 다중 줄 주석과 매우 비슷
+* 차이점은 첫 번째에 추가된 별표
+
+[source,java]
+----
+// This is a single line comment
+
+/*
+ * This is a regular multi-line comment
+ */
+
+/**
+ * This is a Javadoc
+ */
+----
+
+* Javadoc 스타일 주석에는 HTML 태그도 포함 가능
+
+=== 2.1. Javadoc 형식
+
+* 문서화하려는 클래스, 메서드 또는 필드 위에 배치
+
+이러한 주석은 일반적으로 두 섹션으로 구성됩니다:
+
+1. 우리가 무엇에 대해 주석을 다는지에 대한 설명
+2. 독립된 블록 태그(“@” 기호로 표시됨)로, 특정 메타데이터를 설명함
+
+=== 2.2. 클래스 수준의 Javadoc
+
+[source,java]
+----
+/**
+* Hero is the main entity we'll be using to . . .
+*
+* Please see the {@link com.baeldung.javadoc.Person} class for true identity
+* @author Captain America
+*
+*/
+public class SuperHero extends Person {
+    // fields and methods
+}
+----
+
+우리는 간단한 설명과 두 가지 다른 블록 태그, 독립형 및 인라인을 가지고 있습니다:
+
+* 독립형 태그
+** 설명 뒤에 사용
+** 줄의 첫 번째 단어로 태그가 나옴
+** 예를 들어, 작성자 표시를 위해 @author
+* 인라인 태그
+** 어디에서나 사용
+** 중괄호로 둘러 쌈
+** 예를 들어, 소스 코드의 참조 부분에 대한 인라인 링크 제공을 위해 @link
+
+=== 2.3. 필드 수준의 Javadoc
+
+* 클래스 내부에서 어떠한 블록 태그도 사용하지 않고 설명 가능
+
+[source,java]
+----
+/**
+ * The public name of a hero that is common knowledge
+ */
+private String heroName;
+----
+
+**javadoc으로 문서 생성시, 명시적으로 -private option을 추가한 경우에만 생성**
+
+=== 2.4. 메서드 수준의 Javadoc
+
+* 메서드에는 다양한 Javadoc 블록 태그가 포함될 수 있음
+
+[source,java]
+----
+/**
+ * <p>This is a simple description of the method. . .
+ * <a href="http://www.supermanisthegreatest.com">Superman!</a>
+ * </p>
+ * @param incomingDamage the amount of incoming damage
+ * @return the amount of health hero has after attack
+ * @see <a href="http://www.link_to_jira/HERO-402">HERO-402</a>
+ * @since 1.0
+ */
+public int successfullyAttacked(int incomingDamage) {
+    // do things
+    return 0;
+}
+----
+
+* 적절한 문서 생성을 위해 많은 블록 태그가 있으며 다양한 정보 포함
+** 주석에서 기본 HTML 태그를 사용할 수도 있음
+[cols="1a,5a",frame=none,grid=none]
+|===
+s|@param| 메서드의 매개변수나 예상되는 입력에 대한 유용한 설명
+s|@return| 메서드가 반환할 것이거나 반환할 수 있는 것에 대한 설명
+s|@see| {@link} 태그와 유사한 링크 생성, 참조의 문맥에서 더 많이 사용
+s|@since| 프로젝트에 추가된 클래스, 필드 또는 메서드의 버전 지정
+s|@version| 소프트웨어의 버전을 지정
+s|@throws| 소프트웨어가 예외를 예상하는 경우를 더 자세히 설명
+s|@deprecated| 코드가 왜 사용 중지되었는지, 언제 사용 중지되었는지 및 대체 방법이 무엇인지 설명
+|===
+
+== 3. Javadoc 생성
+
+=== 3.1. Javadoc 명령 줄 도구
+
+* 명령 줄 도구는 매우 강력하지만 조금 복잡함
+* 옵션이나 매개변수 없이 javadoc 명령을 실행시 오류 발생하며, 예상되는 출력 매개변수 표시
+* 적어도 어떤 패키지 또는 클래스에 대한 문서를 생성할 것인지 지정해야 함
+* 예를 들어,
+** 명령 프롬프트를 열고 프로젝트 디렉토리로 이동
+** 프로젝트 디렉토리에 모든 클래스가 src에 있다 가정
++
+[source,console]
+----
+user@baeldung:~$ javadoc -d doc src\*
+----
++
+** –d 로 지정된 doc에 문서 생성
+*** 여러 패키지 또는 파일이 있는 경우 모두 제공
+
+
+=== 3.2. Maven 플러그인을 사용한 Javadoc
+
+[source,xml]
+----
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <version>3.6.2</version>
+            <configuration>
+                <source>1.8</source>
+                <target>1.8</target>
+            </configuration>
+            <tags>
+            ...
+            </tags>
+        </plugin>
+    </plugins>
+</build>
+----
+
+* 프로젝트의 기본 디렉토리에서 다음 명령을 실행
++
+[source,console]
+----
+user@baeldung:~$ mvn javadoc:javadoc
+----
+* Javadoc을 target\site 디렉토리에 생성
+
++
+image::https://www.baeldung.com/wp-content/uploads/2018/01/overview.png[개요]
+* 다양한 정보 확인 가능
+** SuperHero 클래스가 확장하는 클래스의 트리 뷰
+** 설명, 필드 및 메서드
++
+image::https://www.baeldung.com/wp-content/uploads/2018/01/ss_javadoc-1024x579.png[Javadoc 자세한 보기]
+
+=== 3.3. 사용자 정의 Javadoc 태그
+
+* 사용자 정의 블록 태그 정의 가능
+
+**location tag**
+
+* 생성된 문서에서 "Notable Locations" 헤더에 표시되는 위치에 @location이라는 사용자 정의 태그를 생성
+* Javadoc 명령에 -tag 옵션 포함
++
+[source,console]
+----
+user@baeldung:~$ javadoc -tag location:a:"Notable Locations:" -d doc src\*
+----
++
+* location tag 사용
++
+[source,java]
+----
+/**
+ * This is an example...
+ * @location New York
+ * @returns blah blah
+ */
+----
+
+**Maven Javadoc 플러그인에서**
+
+* pom.xml에서 사용자 정의 태그 정의
++
+[source,xml]
+----
+...
+<tags>
+    <tag>
+        <name>location</name>
+        <placement>a</placement>
+        <head>Notable Places:</head>
+    </tag>
+</tags>
+...
+----

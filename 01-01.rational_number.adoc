@@ -1,0 +1,156 @@
+:stem: latexmath
+
+
+= 1-1. Rational Number(유리수)
+
+== 정의
+
+* https://en.wikipedia.org/wiki/Rational_number[from Wikipedia]
+
+* Number
+* 몫이나
+** 정수
+* 분수(fraction)로 표현될 수 있는 수
+** 기약 분수(irreducible fraction)
+*** 분모(denominator)와 분자(numerator)가 서로소(coprime)인 정수로 표현
+*** 분모는 0보다 크다. (표준형)
+
+== 연산
+
+* constructor
+** 몫을 받거나
+*** 단일 정수
+** 분수를 받거나
+*** 정수 분자, 정수 분모
+*** 분모는 0이 될 수 없다.
+** Rational을 받아 생성할 수 있다.
+* 문자열 출력
+** 단일 정수로 표현이 가능하면 정수로
+** 그렇지 않으면, 기약 분수를 다음 형식으로 출력
+*** "[분자/분모]"
+*** stem:[1/3] = "[1/3]"
+* 분자, 분모를 얻어 온다.
+* equality
++
+[stem]
+++++
+{{a} \over {b}} = {{c} \over {d}} \text {는 } ad = bc
+++++
++
+or
++
+[stem]
+++++
+{{a} \over {b}} = {{c} \over {d}} \text{가 표준형이라면, }
+a = c \text { and } b = d
+++++
+* ordering
+** 두 분모가 모두 양수이거나 표준 형식이라면,
++
+[stem]
+++++
+{{a} \over {b}} \lt {{c} \over {d}} \text {는 } ad \lt bd
+++++
+* addition(add)
+** 분수의 덧셈
++
+[stem]
+++++
+{{a} \over {b}} + {{c} \over {d}} = {{ad + bc} \over {bd}}
+++++
+* subtraction(subtract)
+** 분수의 뺄셈
++
+[stem]
+++++
+{{a} \over {b}} - {{c} \over {d}} = {{ad - bc} \over {bd}}
+++++
+* multiplication(multiply)
+** 분수의 곱셈
++
+[stem]
+++++
+{{a} \over {b}} \times {{c} \over {d}} = {{ac} \over {bd}}
+++++
+* division(divide)
+** 분수의 나눗셈
++
+[stem]
+++++
+{{{a} \over {b}} \over {{c} \over {d}}} = {{ad} \over {bc}}\\
+\text {단, } c \neq 0
+++++
+* inverse
+** additive inverse(inverse)
++
+[stem]
+++++
+-\left({{a} \over {b}}\right) = \left({{-a} \over {b}}\right)
+++++
+** multiplicative inverse(reciprocal)
++
+[stem]
+++++
+{\left({{a} \over {b}}\right)}^{-1} = {{b} \over {a}}
+++++
+* exponentiation to integer power
+** 지수 n이 양수라면
++
+[stem]
+++++
+{\left({{a} \over {b}}\right)}^{n} = {{{a}^{n}} \over {{b}^{n}}}
+++++
+** 지수 n이 음수라면
++
+[stem]
+++++
+{\left({{a} \over {b}}\right)}^{n} = {{{b}^{-n}} \over {{a}^{-n}}}\\
+\text {단, } a \neq 0
+++++
+
+== Exam-1. Rational class를 작성하라.
+
+[source,java]
+----
+class Rational extends Number {
+    ...
+}
+----
+
+== Exam-2. 구현된 Rational class를 이용해 object 생성에 문제가 없는지 확인하라.
+
+[source,java]
+----
+class TestRational {
+    public static void main(String [] args) {
+        Rational r = new Ration(0);
+        ...
+    }
+}
+----
+
+* 정수
+** 0, 1, -1, Integer.MAX_VALUE, Integer.MIN_VALUE
+* 분수
+** [0/10], [1/2], [-1/2]
+** [Integer.MAX_VALUE/Ineger.MAX_VALUE], [Integer.MAX_VALUE/Integer.MIN_VALUE]
+** [Integer.MIN_VALUE/Integer.MAX_VALUE], [Integer.MIN_VALUE/Integer.MIN_VALUE]
+* 유리수
+** 위에서 생성한 유리수
+
+== Exam-3. Rational class가 기약분수로 구현되어 있는지 확인하라.
+
+[source,java]
+----
+class TestRational {
+    public static void main(String [] args) {
+        Rational r1 = new Ration(2, 4);
+
+        if ((r1.getNumerator() != 1) || (r2.getDenominator() != 2)) {
+            System.out.println("유리수의 값이 올바르지 않습니다.");
+        }
+        ...
+
+    }
+}
+----

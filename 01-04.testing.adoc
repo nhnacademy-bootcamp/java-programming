@@ -1,0 +1,17 @@
+:stem: latexmath
+
+
+= 1-4. Testing
+
+* https://ocw.mit.edu/ans7870/6/6.005/s16/classes/03-testing/[Testing]
+* https://junit.org/junit5/docs/current/user-guide/[JUnit5 User Guide]
+
+=== Exam-1. Rational의 정의를 보고, Rational에 필요한 함수 명세를 작성하라.
+
+[source,java]
+----
+class abstract Rational extends Number {
+    public static Rational add(Rational x, Rational y);
+}
+----
+

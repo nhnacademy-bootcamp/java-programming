@@ -8,6 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Stream;
 
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -67,9 +68,7 @@ public class TestRational {
     @ParameterizedTest
     @MethodSource("arithmeticExceptionProvider")
     public void testCosntructorWithArithmeticExeption(int numerator, int denominator) {
-        assertThrowsExactly(ArithmeticException.class, () -> {
-            new Rational(numerator, denominator);
-        });
+        assertThrowsExactly(ArithmeticException.class, () -> new Rational(numerator, denominator));
     }
 
     public static Stream<Arguments> arithmeticExceptionProvider() {
@@ -83,9 +82,7 @@ public class TestRational {
     @ParameterizedTest
     @MethodSource("outOfBoundsExceptionProvider")
     public void testConstructorWithOutOfBoundsException(int numerator, int denominator) {
-        assertThrowsExactly(OutOfBoundsException.class, () -> {
-            new Rational(numerator, denominator);
-        });
+        assertThrowsExactly(OutOfBoundsException.class, () -> new Rational(numerator, denominator));
     }
 
     public static Stream<Arguments> outOfBoundsExceptionProvider() {
@@ -99,9 +96,7 @@ public class TestRational {
     @ParameterizedTest
     @MethodSource("addProvider")
     void testAdd(Rational r1, Rational r2, Rational result) {
-        assertDoesNotThrow(() -> {
-            assertEquals(result, Rational.add(r1, r2));
-        });
+        assertDoesNotThrow(() -> assertEquals(result, Rational.add(r1, r2)));
     }
 
     static Stream<Arguments> addProvider() {
@@ -114,9 +109,7 @@ public class TestRational {
     @ParameterizedTest
     @MethodSource("subtractProvider")
     void testSubtract(Rational r1, Rational r2, Rational result) {
-        assertDoesNotThrow(() -> {
-            assertEquals(result, Rational.subtract(r1, r2));
-        });
+        assertDoesNotThrow(() -> assertEquals(result, Rational.subtract(r1, r2)));
     }
 
     static Stream<Arguments> subtractProvider() {
@@ -133,9 +126,7 @@ public class TestRational {
     @ParameterizedTest
     @MethodSource("multiplyProvider")
     void testMultiply(Rational r1, Rational r2, Rational result) {
-        assertDoesNotThrow(() -> {
-            assertEquals(result, Rational.multiply(r1, r2));
-        });
+        assertDoesNotThrow(() -> assertEquals(result, Rational.multiply(r1, r2)));
     }
 
     static Stream<Arguments> multiplyProvider() {
@@ -161,9 +152,7 @@ public class TestRational {
     @ParameterizedTest
     @MethodSource("multiplyWithOutOfBoundsExceptionProvider")
     void testMultiplyWidthOutOfBoundsException(Rational r1, Rational r2) {
-        assertThrowsExactly(OutOfBoundsException.class, () -> {
-            Rational.multiply(r1, r2);
-        });
+        assertThrowsExactly(OutOfBoundsException.class, () -> Rational.multiply(r1, r2));
     }
 
     static Stream<Arguments> multiplyWithOutOfBoundsExceptionProvider() {
@@ -178,9 +167,7 @@ public class TestRational {
     @ParameterizedTest
     @MethodSource("divideProvider")
     void testDivide(Rational r1, Rational r2, Rational result) {
-        assertDoesNotThrow(() -> {
-            assertEquals(result, Rational.divide(r1, r2));
-        });
+        assertDoesNotThrow(() -> assertEquals(result, Rational.divide(r1, r2)));
     }
 
     static Stream<Arguments> divideProvider() {
@@ -192,9 +179,7 @@ public class TestRational {
     @ParameterizedTest
     @MethodSource("divideByZeroProvider")
     void testDivideByZero(Rational r1, Rational r2) {
-        assertThrowsExactly(ArithmeticException.class, () -> {
-            Rational.divide(r1, r2);
-        });
+        assertThrowsExactly(ArithmeticException.class, () -> Rational.divide(r1, r2));
     }
 
     static Stream<Arguments> divideByZeroProvider() {
@@ -283,4 +268,10 @@ public class TestRational {
         return argumentList.stream();
     }
 
+    @Test
+    void testEquality() {
+        Rational r = new Rational(1);
+
+        assertEquals(null, r);
+    }
 }

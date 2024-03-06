@@ -109,6 +109,7 @@ image::./image/figure18.png"[title="bounce 보정",align=center]
 
 * 방향별로 튕겨질때의 보정 좌표 계산은 다음과 같다.
 ** 오른쪽 경계 충돌
++
 [stem]
 ++++
 \begin{align*}
@@ -121,8 +122,8 @@ x_3 &= X_R - (|d_x| - (X_R - x_1))\\
 y_3 &= y_1 + dy\\
 \end{align*}
 ++++
-
 ** 왼쪽 경계 충돌
++
 [stem]
 ++++
 \begin{align*}
@@ -136,9 +137,8 @@ x_3 &= X_L + (|d_x| - (x_1 - X_L))\\
 y_3 &= y_1 + d_y\\
 \end{align*}
 ++++
-
 ** 위쪽 경계 충돌
-
++
 [stem]
 ++++
 \begin{align*}
@@ -153,7 +153,7 @@ x_3 &= x_1 + d_x\\
 ++++
 
 ** 아래쪽 경계 충돌
-
++
 [stem]
 ++++
 \begin{align*}

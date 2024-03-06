@@ -109,8 +109,8 @@ image::./image/figure18.png"[title="bounce 보정",align=center]
 
 * 방향별로 튕겨질때의 보정 좌표 계산은 다음과 같다.
 ** 오른쪽 경계 충돌
-[steam]
----
+[stem]
+++++
 \begin{align*}
 X_R & = X_2 - r\\
 x_2 &= x_1 + |d_x|\\
@@ -120,11 +120,11 @@ x_3 &= X_R - (|d_x| - (X_R - x_1))\\
     &= 2{(X_2 - r)} - x_2\\
 y_3 &= y_1 + dy\\
 \end{align*}
----
+++++
 
 ** 왼쪽 경계 충돌
-[steam]
----
+[stem]
+++++
 \begin{align*}
 X_L & = X_1 + r\\
 x_2 & = x_1 - |d_x|\\
@@ -135,12 +135,12 @@ x_3 &= X_L + (|d_x| - (x_1 - X_L))\\
     &= 2{(X_1 + r)} - x_2\\
 y_3 &= y_1 + d_y\\
 \end{align*}
----
+++++
 
 ** 위쪽 경계 충돌
 
-[steam]
----
+[stem]
+++++
 \begin{align*}
 Y_T & = Y_2 - r\\
 y_2 &= y_1 + |d_y|\\
@@ -150,12 +150,12 @@ y_3 &= Y_T - (|d_y| - (Y_T - y_1))\\
     &= 2{(Y_2 - r)} - y_2\\
 x_3 &= x_1 + d_x\\
 \end{align*}
----
+++++
 
 ** 아래쪽 경계 충돌
 
-[steam]
----
+[stem]
+++++
 \begin{align*}
 Y_B & = Y_1 + r\\
 y_2 & = y_1 - |d_y|\\
@@ -166,7 +166,7 @@ y_3 &= Y_B + (|d_y| - (y_1 - Y_B))\\
     &= 2{(Y_1 + r)} - y_2\\
 x_3 &= x_1 + d_x\\
 \end{align*}
----
+++++
 
 {empty} +
 

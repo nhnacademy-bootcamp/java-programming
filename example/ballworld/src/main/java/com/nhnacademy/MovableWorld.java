@@ -1,8 +1,21 @@
 package com.nhnacademy;
 
 public class MovableWorld extends World {
+    static final int DEFAULT_DT = 10;
     int moveCount;
     int maxMoveCount = 0;
+    int dt = DEFAULT_DT;
+
+    public void setDT(int dt) {
+        if (dt < 0) {
+            throw new IllegalArgumentException();
+        }
+        this.dt = dt;
+    }
+
+    public int getDT() {
+        return dt;
+    }
 
     public void reset() {
         moveCount = 0;
@@ -25,6 +38,11 @@ public class MovableWorld extends World {
     public void run() {
         while (!Thread.currentThread().isInterrupted()) {
             move();
+            try {
+                Thread.sleep(getDT());
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
         }
     }
 

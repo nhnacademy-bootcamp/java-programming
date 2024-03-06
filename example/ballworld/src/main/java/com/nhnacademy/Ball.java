@@ -4,6 +4,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class Ball {
+    static int count = 0;
+    int id = ++count;
     int x;
     int y;
     int radius;
@@ -26,6 +28,10 @@ public class Ball {
         this.radius = radius;
 
         logger.trace("Ball created : {}, {}, {}", x, y, radius);
+    }
+
+    public int getId() {
+        return id;
     }
 
     public int getX() {

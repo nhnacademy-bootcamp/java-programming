@@ -7,7 +7,6 @@ import java.awt.Color;
 import java.util.stream.Stream;
 
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.RepetitionInfo;
 import org.junit.jupiter.api.Test;
@@ -87,15 +86,14 @@ public class TestMovableBall {
                 Arguments.arguments(10, 2, 10, 5, -10, 1000));
     }
 
-    MovableBall ball;
-    int startX = 0;
-    int startY = 0;
-    int deltaX = 10;
-    int deltaY = 100;
+    static int startX = 0;
+    static int startY = 0;
+    static int deltaX = 10;
+    static int deltaY = 100;
+    static MovableBall ball = new MovableBall(startX, startY, 10, Color.RED);
 
-    @BeforeEach
-    void beforRepeatedMove() {
-        ball = new MovableBall(startX, startY, 10, Color.RED);
+    @BeforeAll
+    static void beforRepeatedMove() {
         ball.setDX(deltaX);
         ball.setDY(deltaY);
     }

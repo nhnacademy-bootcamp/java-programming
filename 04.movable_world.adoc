@@ -132,7 +132,7 @@ image::./image/figure07.png[title="Movable Ball",align=center]
 * void run()
 ** 지정한 횟수 동안 ball 이동
 ** 최대 이동 횟수가 0이면, 계속 이동
-* int getMovementCount()
+* int getMoveCount()
 ** 이동 횟수 반환
 * int getMaxMoveCount()
 ** 최대 이동 횟수 반환
@@ -145,7 +145,7 @@ image::./image/figure07.png[title="Movable Ball",align=center]
 
 * MovableWorld
 ** World class 확장
-** World class의 변수를 직접 접근해야 할 경우, gettter 추가 후 이용
+** World class의 변수를 직접 접근해야 할 경우, getter 추가 후 이용
 * ball
 ** 10개 생성
 ** 시작 위치 window 내로 제한

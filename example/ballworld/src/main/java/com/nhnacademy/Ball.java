@@ -1,9 +1,13 @@
 package com.nhnacademy;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class Ball {
     int x;
     int y;
     int radius;
+    Logger logger = LogManager.getLogger(this.getClass().getSimpleName());
 
     public Ball(int x, int y, int radius) {
         if (radius <= 0) {
@@ -20,6 +24,8 @@ public class Ball {
         this.x = x;
         this.y = y;
         this.radius = radius;
+
+        logger.trace("Ball created : {}, {}, {}", x, y, radius);
     }
 
     public int getX() {

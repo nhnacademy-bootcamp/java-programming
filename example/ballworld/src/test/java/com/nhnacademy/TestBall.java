@@ -34,9 +34,7 @@ public class TestBall {
     @ParameterizedTest
     @MethodSource("illegalArgumentExceptionProvider")
     void testConstructorWidthIllegalArgumentException(int x, int y, int radius) {
-        assertThrowsExactly(IllegalArgumentException.class, () -> {
-            new Ball(x, y, radius);
-        });
+        assertThrowsExactly(IllegalArgumentException.class, () -> new Ball(x, y, radius));
     }
 
     static Stream<Arguments> illegalArgumentExceptionProvider() {

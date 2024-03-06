@@ -5,8 +5,8 @@
 * link:./01.introduction.adoc[01. 시작하며]
 * link:./02.graphics.adoc[02. Java Graphics]
 * link:./03.ball_world.adoc[03. Ball & World]
-* link:./04.ball_world.adoc[04. Movable World]
-* link:./05.ball_world.adoc[05. Bounded World]
+* link:./04.movable_world.adoc[04. Movable World]
+* link:./05.bounded_world.adoc[05. Bounded World]
 
 ---
 

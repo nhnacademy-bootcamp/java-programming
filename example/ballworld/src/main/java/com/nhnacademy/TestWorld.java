@@ -33,7 +33,7 @@ public class TestWorld {
 
         while (world.getCount() < BALL_COUNT) {
             try {
-                world.add(new PaintableBall(random.nextInt(FRAME_WIDTH), random.nextInt(FRAME_HEIGHT),
+                world.add(new MovableBall(random.nextInt(FRAME_WIDTH), random.nextInt(FRAME_HEIGHT),
                         MIN_RADIUS + random.nextInt(MAX_RADIUS - MIN_RADIUS + 1),
                         COLOR_TABLE[random.nextInt(COLOR_TABLE.length)]));
             } catch (IllegalArgumentException ignore) {

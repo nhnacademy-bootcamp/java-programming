@@ -11,7 +11,7 @@ public class TestWorld {
     static final int FRAME_HEIGHT = 400;
     static final int MIN_RADIUS = 20;
     static final int MAX_RADIUS = 50;
-    static final int BALL_COUNT = 10;
+    static final int BALL_COUNT = 1;
     static final int MIN_DELTA = 10;
     static final int MAX_DELTA = 30;
     static final Color[] COLOR_TABLE = {
@@ -35,7 +35,7 @@ public class TestWorld {
 
         while (world.getCount() < BALL_COUNT) {
             try {
-                MovableBall ball = new MovableBall(random.nextInt(FRAME_WIDTH), random.nextInt(FRAME_HEIGHT),
+                BoundedBall ball = new BoundedBall(random.nextInt(FRAME_WIDTH), random.nextInt(FRAME_HEIGHT),
                         MIN_RADIUS + random.nextInt(MAX_RADIUS - MIN_RADIUS + 1),
                         COLOR_TABLE[random.nextInt(COLOR_TABLE.length)]);
 
@@ -45,6 +45,7 @@ public class TestWorld {
                 ball.setDX(dx);
                 ball.setDY(dy);
 
+                ball.setBounds(world.getBounds());
                 world.add(ball);
             } catch (IllegalArgumentException ignore) {
                 //
@@ -53,7 +54,8 @@ public class TestWorld {
 
         frame.setVisible(true);
 
-        world.setMaxMoveCount(250);
+        world.setMaxMoveCount(0);
+        world.setDT(100);
         world.run();
     }
 }

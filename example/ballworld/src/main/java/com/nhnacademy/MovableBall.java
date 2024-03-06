@@ -3,6 +3,8 @@ package com.nhnacademy;
 import java.awt.Color;
 
 public class MovableBall extends PaintableBall {
+    public static final int DEFAULT_DX = 0;
+    public static final int DEFAULT_DY = 0;
     int dx = 0;
     int dy = 0;
 

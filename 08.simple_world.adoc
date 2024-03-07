@@ -1,0 +1,177 @@
+:stem: latexmath
+
+= 8. 타입 정리하기
+
+**Keyword**
+
+* Interface
+* Subclassing
+* Subtyping
+
+문제를 단순화하기 위해 Box class가 추가된 World class를 다시 보자.
+
+World class 내에서 ball과 box를 구분해야 할 곳은 어디인가?
+
+이것만 일반화할 수 있다면 문제가 쉽게 해결되지 않을까?
+
+== 8-1. Regionable 인터페이스
+
+World class는 출력되는 오브젝트들은 모두 일정한 영역을 갖는다. 앞서 정의한 ball이나 box에서도 getRegion 함수를 이용해 영역 확인이 가능하다.
+
+이러한 공통적인 기능들이 제공되는 type을 정의한다.
+
+=== 정의
+
+* 영역을 가지는 type
+
+{empty} +
+
+==== Method
+
+*  public Point getLocation()
+** Region의 위치.
+** 영역의 중심
+
+* public int getWidth()
+** 영역의 폭
+
+* int getHeight();
+** 영역의 높이
+
+* int getMinX();
+** 영역의 최소 X 좌표
+
+* int getMaxX();
+** 영역의 최대 X 좌표
+
+* public int getMinY();
+** 영역의 최소 Y 좌표
+
+* public int getMaxY();
+** 영역의 최대 Y 좌표
+
+* public boolean intersects(Regionable other);
+** 영역간 교차 영역 존재 여부
+
+* public Regionable intersection(Regionable other);
+** 영역간 교차 영역
+
+---
+
+=== Exam-8-1-1. Regionable 인터페이스를 선언하고, World class에는 Regionable 오브젝트를 받아서 관리할 수 있도록 수정하라[[Exam-8-1-1,"Exam-8-1-1"]]
+
+{empty} +
+
+==== 확인
+
+*link:../src/main/java/com/nhnacademy/World.java[class World]
+* 어떠한 문제점이 있는가?
+* 해결 방법은? Regionable에 그리기 함수 추가?
+
+---
+
+== 8-2. Paintable 인터페이스
+
+World class는 도형을 받아서 화면에 출력하는 작업을 한다. 따라서, 실제로 필요한 것은 paint 함수를 가진 오브젝트면 어떠한 종류든 상관이 없다.
+
+=== 정의
+
+* 그리기 지원
+
+{empty} +
+
+==== Method
+
+* void getColor()
+** 색 얻어 오기
+
+* void paint(Graphics g)
+** 그리기
+
+---
+
+=== Exam-8-2-1. Paintable 인터페이스를 선언하고, World class에는 Paintable 오브젝트를 받아서 관리할 수 있도록 수정하라
+
+{empty} +
+
+==== 확인
+
+* <<Exam-8-1-1>>에서 발생한 문제는 해결되었나?
+
+---
+
+=== Exam-8-2-2. Ball class와 Box class를 World class에 적용할 수 있도록 수정하라
+
+* class가 수정되었다면 앞서 만들어 둔 SingleBallWorldTest를 이용해 동작을 확인해 보자.
+* MultiBallWorldTest에서는 에러가 발생할 수 있다. 이는 확인을 위해 getBall 함수를 이용해 Ball을 가져오기 때문이다. 수정해 보도록 한다.
+
+
+==== 확인
+
+image::./image/figure35.png"[title="Exam-26",align=center]
+
+---
+
+== 8-3. Movable 인터페이스
+
+=== 정의
+
+* MovableBall, MovableBox 그리고 MovableWorld? Movable!
+
+* MovableWorld에서 오브젝트를 이동하기 위해 필요한 것은 해당 오브젝트에서 이동에 필요한 함수 지원 여부
+
+==== Method
+
+* void setMotion(Motion motion)
+** 단위 시간당 이동량을 설정
+* Motion getMotion()
+** 설정되어 있는 단위 시간당 이동량
+* void move()
+** 단위 시간당 이동량만큼 이동하기
+
+---
+
+=== Exam-8-3-1. MovableBall과 MovableWorld도 Movable 인터페이스를 선언해 해결하는 것과 같은 방법으로 해결하라
+
+==== 확인
+
+* 기존 코드에서 많은 부분을 바꿔야 하나?
+
+---
+
+== 8-4. 새로운 물체 추가
+
+=== 정의
+
+* Triangle 추가
+* Region을 설정하고, Region에 들어가는 triangle
+* Ball, Box와 같이 그려지고, 움직임
+
+=== Exam-8-4-1. Triangle, PaintableTriangle, MovableTriangle을 추가하라.
+
+* 단, World, MovableWorld, BoundedWorld의 수정은 없어야 한다.
+
+== 8-5. Bounded 인터페이스
+
+=== 정의
+
+* BoundedBall, BoundedBox 그리고 BoundedWorld?? Bounded!
+
+==== Method
+
+* Regionable getBounds()
+** 경계 정보
+* void setBounds(Regionable bounds)
+** 경계 정보 설정
+* boolean isOutOfBounds(Regionable bounds)
+** 이동 후 경계를 벗어났는지 확인
+* void bounce()
+* 경계를 벗어 경우 벽에서 튕김
+
+---
+
+== Exam-8-5-1. BoundedBall과 BoundedWorld도 Bounded 인터페이스를 선언해 해결하는 것과 같은 방법으로 해결하라
+
+---
+
+link:./00.index.adoc[돌아가기]

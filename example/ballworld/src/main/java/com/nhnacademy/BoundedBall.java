@@ -49,4 +49,17 @@ public class BoundedBall extends MovableBall {
             setDY(-getDY());
         }
     }
+
+    public void bounce(Ball other) {
+        Rectangle intersection = getRegion().intersection(other.getRegion());
+
+        if (getRegion().getHeight() != intersection.getHeight()) {
+            setDY(-getDY());
+        }
+
+        if (getRegion().getWidth() != intersection.getWidth()) {
+            setDX(-getDX());
+        }
+
+    }
 }

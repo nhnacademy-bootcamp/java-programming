@@ -61,7 +61,7 @@ Ball class 코드를 보도록 하자.
 
 ---
 
-== 6-3. Motion class
+== 6-3. Vector class
 
 === 정의
 
@@ -81,16 +81,16 @@ dy = v cos \theta
 
 이러한 문제 해결을 위해 2차원 공간에서의 물체 이동과 관련된 class를 만들도록 한다.
 
-Motion class는 물리학이나 수학에서 말하는 Vector를 표현한 것이다.
+Vector class는 물리학이나 수학에서 말하는 Vector를 표현한 것이다.
 
-image::./image/figure30.png"[title="Motion",align=center]
+image::./image/figure30.png"[title="Vector",align=center]
 
 
 {empty} +
 
 ==== Variable
 
-Motion은 좌표계를 기준으로 함으로 dx, dy를 기본으로 갖는다.
+Vector은 좌표계를 기준으로 함으로 dx, dy를 기본으로 갖는다.
 
 * int dx
 ** x축 변화량
@@ -101,16 +101,16 @@ Motion은 좌표계를 기준으로 함으로 dx, dy를 기본으로 갖는다.
 
 ==== Method
 
-Motion은 수학과 물리학에서 이야기하는 벡터로서 각각의 성분을 개별적으로 반환하거나, motion 간 연산이 가능하다.
+Vector은 수학과 물리학에서 이야기하는 벡터로서 각각의 성분을 개별적으로 반환하거나, vector 간 연산이 가능하다.
 
-* Motion createPosition(int dx, int dy)
+* Vector createPosition(int dx, int dy)
 ** x축과 y축 변화량으로 생성할 수 있다
-* Motion createDisplacement(int angle, int magnitude)
+* Vector createDisplacement(int angle, int magnitude)
 ** 각도(angle)와 크기(magnitude)로 생성할 수 있다
-* void add(Motion other)
-** motion을 더할 수 있다.
-* void sub(Motion other)
-** motion을 뺄 수 있다.
+* void add(Vector other)
+** vector을 더할 수 있다.
+* void sub(Vector other)
+** vector을 뺄 수 있다.
 * int getDX()
 ** X축 변화량
 * int getDY()
@@ -128,10 +128,10 @@ Motion은 수학과 물리학에서 이야기하는 벡터로서 각각의 성�
 
 ---
 
-=== Exam-6-3-1. Motion class를 구현하라
+=== Exam-6-3-1. Vector class를 구현하라
 
 * x축과 y축의 변화량을 줄 경우와 각도와 크기를 줄 경우를 구분하기 어렵다(정수와 실수로 구분할 수는 있지만….)
-* Motion을  정의하고, 생성자는 class 함수로 정의한다.
+* Vector을  정의하고, 생성자는 class 함수로 정의한다.
 ** x축과 y축의 변화량은 createPosition
 ** 각도와 크기는 createDisplacement
 
@@ -140,7 +140,7 @@ Motion은 수학과 물리학에서 이야기하는 벡터로서 각각의 성�
 ==== 확인
 
 * Source Code
-** link:./example/chapter05/src/main/java/com/nhnacademy/exam050301/Motion.java[class Motion]
+** link:./example/chapter05/src/main/java/com/nhnacademy/exam050301/Vector.java[class Vector]
 * 물음
 * Position Vector와  Displacement Vector간에는 변환이 자유롭다. 여기서도 그러한가?
 * 그렇지 않다면 무엇이 문제인가?
@@ -148,21 +148,21 @@ Motion은 수학과 물리학에서 이야기하는 벡터로서 각각의 성�
 
 ---
 
-=== Exam-6-3-2. Motion class를 JUnit으로 확인하라.
+=== Exam-6-3-2. Vector class를 JUnit으로 확인하라.
 
-* Motion class는 내부 연산, getter, setter로 구성되어, JUnit 이용한 단위 테스트 적용 가능
+* Vector class는 내부 연산, getter, setter로 구성되어, JUnit 이용한 단위 테스트 적용 가능
 
 {empty} +
 
 ==== 확인
 
 * Source Code
-** link:./example/chapter05/src/test/java/com/nhnacademy/exam050302/TestMotion.java[class TestMotion]
-* Motion class의 instance를 생성하여, 미리 계산된 값과 동일하게 나오는지 확인
+** link:./example/chapter05/src/test/java/com/nhnacademy/exam050302/TestVector.java[class TestVector]
+* Vector class의 instance를 생성하여, 미리 계산된 값과 동일하게 나오는지 확인
 
 == 6-4. 공간에서의 이동
 
-공간에서의 이동은 물체가 방향과 크기(motion)에 따라 위치가 변하는 것을 말하며, 이를 Motion class로 정의하였다.
+공간에서의 이동은 물체가 방향과 크기(vector)에 따라 위치가 변하는 것을 말하며, 이를 Vector class로 정의하였다.
 
 === Ball의 이동
 
@@ -170,17 +170,17 @@ Motion은 수학과 물리학에서 이야기하는 벡터로서 각각의 성�
 이것은 방향성을 갖는 힘 또는 에너지인 하나의 데이터를 두개의 정보로 나누어 관리하는 것으로 바람직하지 않고,
 프로그램 상에서 오류가 발생할 가능성도 높아진다.
 
-예를 들어, 여러개의 Motion을 관리할 경우, 다음과 같은 문제가 발생할 수 있다.
+예를 들어, 여러개의 Vector을 관리할 경우, 다음과 같은 문제가 발생할 수 있다.
 * 여러개의 이동량 데이터가 존재할 경우, dx, dy가 분리되어 관리됨.(예를 들어, dx 배열, dy 배열)
 * 함께 관리되어야 할 데이터가 3개 이상으로 늘어날 경우, 더욱 복잡해 짐.
 * Position, Displacement 등의 변환이 빈번할 경우, 코드 복잡성이 높아짐.
 ** 특정 데이터에서 값을 얻어내는 것이 아닌 함수등을 통해서 계산해 내야함.
 
-MovableBall에 Motion class로 변경하여 적용해 보자.
+MovableBall에 Vector class로 변경하여 적용해 보자.
 
 ---
 
-=== Exam-6-4-1. 단위 이동량stem:[(dx, dy)]을 Motion class로 수정하라
+=== Exam-6-4-1. 단위 이동량stem:[(dx, dy)]을 Vector class로 수정하라
 
 * MovableBall에 정의되어 있는 이동량 관련 변수를 수정하라.
 * 불필요한 함수는 제거하거나 변경하라.
@@ -202,7 +202,7 @@ public class MovableBall extends Ball {
 [source,java]
 ----
 public class MovableBall extends Ball {
-    Motion motion = new Motion();
+    Vector vector = new Vector();
     long movementCount = 0;
         ...
 }

@@ -28,11 +28,14 @@ public class MovableWorld extends World {
                 if (ball instanceof MovableBall) {
                     ((MovableBall) ball).move();
 
-                    for (int j = 0; j < getCount(); j++) {
-                        Ball otherBall = get(j);
+                    if (ball instanceof BoundedBall) {
+                        for (int j = 0; j < getCount(); j++) {
+                            Ball otherBall = get(j);
 
-                        if ((ball != otherBall) && (ball.getRegion().intersects(otherBall.getRegion()))) {
-                            logger.info("ball({})와 ball({})이 충돌하였습니다.", ball.getId(), otherBall.getId());
+                            if ((ball != otherBall) && (ball.getRegion().intersects(otherBall.getRegion()))) {
+                                ((BoundedBall) ball).bounce(otherBall);
+                                logger.info("ball({})와 ball({})이 충돌하였습니다.", ball.getId(), otherBall.getId());
+                            }
                         }
                     }
                 }

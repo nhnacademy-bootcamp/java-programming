@@ -3,17 +3,17 @@ package com.nhnacademy;
 import java.awt.Color;
 import java.awt.Graphics;
 
-public class PaintableBall extends Ball implements Paintable {
+public class PaintableBox extends Box implements Paintable {
     public static final Color DEFAULT_COLOR = Color.BLACK;
 
     Color color;
 
-    public PaintableBall(int x, int y, int radius) {
-        this(x, y, radius, DEFAULT_COLOR);
+    public PaintableBox(int x, int y, int width, int height) {
+        this(x, y, width, height, DEFAULT_COLOR);
     }
 
-    public PaintableBall(int x, int y, int radius, Color color) {
-        super(x, y, radius);
+    public PaintableBox(int x, int y, int width, int height, Color color) {
+        super(x, y, width, height);
 
         if (color == null) {
             throw new IllegalArgumentException();
@@ -47,9 +47,7 @@ public class PaintableBall extends Ball implements Paintable {
         Color originalColor = g.getColor();
 
         g.setColor(getColor());
-        g.fillOval(getX() - getRadius(), getY() - getRadius(), getRadius() * 2, getRadius() * 2);
-        g.setColor(Color.GRAY);
-        g.drawRect((int) getRegion().getX(), (int) getRegion().getY(), (int) getRegion().getWidth(),
+        g.fillRect((int) getRegion().getX(), (int) getRegion().getY(), (int) getRegion().getWidth(),
                 (int) getRegion().getHeight());
 
         g.setColor(originalColor);

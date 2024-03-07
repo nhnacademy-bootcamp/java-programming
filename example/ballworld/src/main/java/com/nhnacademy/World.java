@@ -10,7 +10,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class World extends JPanel {
-    List<Ball> ballList = new LinkedList<>();
+    List<Object> objectList = new LinkedList<>();
     Logger logger = LogManager.getLogger(this.getClass().getSimpleName());
 
     /**
@@ -30,42 +30,88 @@ public class World extends JPanel {
             throw new IllegalArgumentException();
         }
 
-        for (Ball existBall : ballList) {
-            if (ball.getRegion().intersects(existBall.getRegion())) {
-                throw new IllegalArgumentException();
+        for (Object object : objectList) {
+            if (object instanceof Ball) {
+                Ball existBall = (Ball) object;
+
+                if (ball.getRegion().intersects(existBall.getRegion())) {
+                    throw new IllegalArgumentException();
+                }
             }
         }
 
         if (ball instanceof BoundedBall) {
             ((BoundedBall) ball).setBounds(getBounds());
         }
-        ballList.add(ball);
+        objectList.add(ball);
+    }
+
+    public void add(Box box) {
+        if (box == null) {
+            throw new IllegalArgumentException();
+        }
+
+        if ((box.getX() - box.getWidth() / 2 < 0)
+                || (box.getX() + box.getWidth() / 2 > getWidth())
+                || (box.getY() - box.getHeight() / 2 < 0)
+                || (box.getY() + box.getHeight() / 2 > getHeight())) {
+            throw new IllegalArgumentException();
+        }
+
+        for (Object object : objectList) {
+            if (object instanceof Box) {
+                Box existBox = (Box) object;
+                if (box.getRegion().intersects(existBox.getRegion())) {
+                    throw new IllegalArgumentException();
+                }
+            }
+        }
+
+        // if (box instanceof BoundedBox) {
+        // ((BoundedBox) box).setBounds(getBounds());
+        // }
+        objectList.add(box);
     }
 
     public void remove(Ball ball) {
-        ballList.remove(ball);
+        objectList.remove(ball);
     }
 
-    @Override
-    public void remove(int index) {
-        ballList.remove(index);
+    public void remove(Box box) {
+        objectList.remove(box);
     }
 
-    public int getCount() {
-        return ballList.size();
+    public void removeBall(int index) {
+        objectList.remove(index);
     }
 
-    public Ball get(int index) {
-        return ballList.get(index);
+    public void removeBox(int index) {
+        objectList.remove(index);
+    }
+
+    public int getBallCount() {
+        return objectList.size();
+    }
+
+    public int getBoxCount() {
+        return objectList.size();
+    }
+
+    public Ball getBall(int index) {
+        return (Ball) objectList.get(index);
+    }
+
+    public Box getBox(int index) {
+        return (Box) objectList.get(index);
     }
 
     @Override
     public void paint(Graphics g) {
         super.paint(g);
 
-        for (Ball ball : ballList) {
-            if (ball instanceof PaintableBall) {
-                ((PaintableBall) ball).paint(g);
+        for (Object object : objectList) {
+            if (object instanceof Paintable) {
+                ((Paintable) object).paint(g);
             }
         }
     }

@@ -36,7 +36,9 @@ public class TestWorld {
 
         Random random = new Random();
 
-        while (world.getCount() < FIXED_BALL_COUNT) {
+        world.add(new PaintableBox(200, 200, 100, 150));
+
+        while (world.getBallCount() < FIXED_BALL_COUNT) {
             try {
                 PaintableBall ball = new PaintableBall(random.nextInt(FRAME_WIDTH),
                         random.nextInt(FRAME_HEIGHT),
@@ -48,7 +50,7 @@ public class TestWorld {
             }
         }
 
-        while (world.getCount() < FIXED_BALL_COUNT + BOUNDED_BALL_COUNT) {
+        while (world.getBallCount() < FIXED_BALL_COUNT + BOUNDED_BALL_COUNT) {
             try {
                 BoundedBall ball = new BoundedBall(random.nextInt(FRAME_WIDTH), random.nextInt(FRAME_HEIGHT),
                         MIN_RADIUS + random.nextInt(MAX_RADIUS - MIN_RADIUS + 1),

@@ -23,14 +23,14 @@ public class MovableWorld extends World {
 
     public void move() {
         if ((getMaxMoveCount() == 0) || (getMoveCount() < getMaxMoveCount())) {
-            for (int i = 0; i < getCount(); i++) {
-                Ball ball = get(i);
+            for (int i = 0; i < getBallCount(); i++) {
+                Ball ball = getBall(i);
                 if (ball instanceof MovableBall) {
                     ((MovableBall) ball).move();
 
                     if (ball instanceof BoundedBall) {
-                        for (int j = 0; j < getCount(); j++) {
-                            Ball otherBall = get(j);
+                        for (int j = 0; j < getBallCount(); j++) {
+                            Ball otherBall = getBall(j);
 
                             if ((ball != otherBall) && (ball.getRegion().intersects(otherBall.getRegion()))) {
                                 ((BoundedBall) ball).bounce(otherBall);

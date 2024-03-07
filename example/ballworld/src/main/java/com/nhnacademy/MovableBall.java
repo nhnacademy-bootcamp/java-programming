@@ -2,7 +2,7 @@ package com.nhnacademy;
 
 import java.awt.Color;
 
-public class MovableBall extends PaintableBall {
+public class MovableBall extends PaintableBall implements Movable {
     public static final int DEFAULT_DX = 0;
     public static final int DEFAULT_DY = 0;
 

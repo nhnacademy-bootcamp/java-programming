@@ -1,29 +1,27 @@
 package com.nhnacademy;
 
 import java.awt.Color;
-import java.awt.Rectangle;
 
 public class BoundedBall extends MovableBall {
 
-    Rectangle bounds;
+    Bounds bounds;
 
-    public BoundedBall(int x, int y, int radius, Color color) {
-        super(x, y, radius, color);
+    public BoundedBall(Point location, int radius, Color color) {
+        super(location, radius, color);
 
-        bounds = new Rectangle(x - radius, y - radius, 2 * radius, 2 * radius);
+        bounds = new Bounds(location, 2 * radius, 2 * radius);
     }
 
-    public void setBounds(Rectangle bounds) {
+    public void setBounds(Bounds bounds) {
         this.bounds = bounds;
     }
 
-    public Rectangle getBounds() {
+    public Bounds getBounds() {
         return bounds;
     }
 
     public boolean isOutOfBounds() {
-        Rectangle region = new Rectangle(getX() - getRadius(), getY() - getRadius(), 2 * getRadius(), 2 * getRadius());
-        Rectangle intersection = bounds.intersection(region);
+        Bounds intersection = getBounds().intersection(getRegion());
 
         return (intersection.getWidth() != region.getWidth()) || (intersection.getHeight() != region.getHeight());
     }
@@ -51,7 +49,7 @@ public class BoundedBall extends MovableBall {
     }
 
     public void bounce(Ball other) {
-        Rectangle intersection = getRegion().intersection(other.getRegion());
+        Bounds intersection = getRegion().intersection(other.getRegion());
 
         if (getRegion().getHeight() != intersection.getHeight()) {
             setDY(-getDY());

@@ -8,8 +8,8 @@ public class MovableBall extends PaintableBall {
 
     final Vector motion = new Vector();
 
-    public MovableBall(int x, int y, int radius, Color color) {
-        super(x, y, radius, color);
+    public MovableBall(Point location, int radius, Color color) {
+        super(location, radius, color);
     }
 
     public Vector getMotion() {
@@ -34,7 +34,7 @@ public class MovableBall extends PaintableBall {
 
     public void move() {
         moveTo(getX() + getDX(), getY() + getDY());
-        logger.trace("{} : {}, {}, {}, {}", getId(), getX(), getY(), getRegion().getX(), getRegion().getY());
+        logger.trace("{} : {}, {}, {}, {}", getId(), getX(), getY(), getRegion().getMinX(), getRegion().getMinY());
     }
 
     public void moveTo(int x, int y) {

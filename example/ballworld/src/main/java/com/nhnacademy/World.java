@@ -37,7 +37,7 @@ public class World extends JPanel {
         }
 
         if (ball instanceof BoundedBall) {
-            ((BoundedBall) ball).setBounds(getBounds());
+            ((BoundedBall) ball).setBounds(new Bounds(getBounds()));
         }
         ballList.add(ball);
     }

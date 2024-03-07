@@ -8,12 +8,12 @@ public class PaintableBall extends Ball {
 
     Color color;
 
-    public PaintableBall(int x, int y, int radius) {
-        this(x, y, radius, DEFAULT_COLOR);
+    public PaintableBall(Point location, int radius) {
+        this(location, radius, DEFAULT_COLOR);
     }
 
-    public PaintableBall(int x, int y, int radius, Color color) {
-        super(x, y, radius);
+    public PaintableBall(Point location, int radius, Color color) {
+        super(location, radius);
 
         if (color == null) {
             throw new IllegalArgumentException();
@@ -47,10 +47,10 @@ public class PaintableBall extends Ball {
         Color originalColor = g.getColor();
 
         g.setColor(getColor());
-        g.fillOval(getX() - getRadius(), getY() - getRadius(), getRadius() * 2, getRadius() * 2);
+        g.fillOval(getRegion().getMinX(), getRegion().getMinY(), getRegion().getWidth(), getRegion().getHeight());
         g.setColor(Color.GRAY);
-        g.drawRect((int) getRegion().getX(), (int) getRegion().getY(), (int) getRegion().getWidth(),
-                (int) getRegion().getHeight());
+        g.drawRect(getRegion().getMinX(), getRegion().getMinY(), getRegion().getWidth(),
+                getRegion().getHeight());
 
         g.setColor(originalColor);
     }

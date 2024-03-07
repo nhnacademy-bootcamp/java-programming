@@ -5,29 +5,29 @@ import java.util.UUID;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class Ball implements Bounded {
+public class Box implements Bounded {
     final String id = UUID.randomUUID().toString();
     final Logger logger = LogManager.getLogger(this.getClass().getSimpleName());
     final Bounds bounds;
 
-    public Ball(Point location, int radius) {
-        this(location.getX(), location.getY(), radius);
+    public Box(Point location, int width, int height) {
+        this(location.getX(), location.getY(), width, height);
     }
 
-    public Ball(int x, int y, int radius) {
-        if (radius <= 0) {
+    public Box(int x, int y, int width, int height) {
+        if ((width <= 0) || (height <= 0)) {
             throw new IllegalArgumentException("반지름은 0보다 커야 합니다.");
         }
 
-        if ((x + (long) radius > Integer.MAX_VALUE)
-                || (x - (long) radius < Integer.MIN_VALUE)
-                || (y + (long) radius > Integer.MAX_VALUE)
-                || (y - (long) radius < Integer.MIN_VALUE)) {
+        if ((x + (long) width / 2 > Integer.MAX_VALUE)
+                || (x - (long) width / 2 < Integer.MIN_VALUE)
+                || (y + (long) height / 2 > Integer.MAX_VALUE)
+                || (y - (long) height / 2 < Integer.MIN_VALUE)) {
             throw new IllegalArgumentException("볼이 정수 공간을 벗어납니다.");
         }
 
-        bounds = new Bounds(x - radius, y - radius, 2 * radius, 2 * radius);
-        logger.trace("Ball created : {}, {}, {}", x, y, radius);
+        bounds = new Bounds(x - width / 2, y - height / 2, width / 2 * 2, height / 2 * 2);
+        logger.trace("Box created : {}, {}, {}, {}", x, y, width, height);
     }
 
     public String getId() {
@@ -79,11 +79,7 @@ public class Ball implements Bounded {
     }
 
     void setLocation(Point location) {
-        bounds.setLocation(location.getX() - getRadius(), location.getY() - getRadius());
-    }
-
-    public int getRadius() {
-        return bounds.getWidth() / 2;
+        bounds.setLocation(location.getX() - getWidth() / 2, location.getY() - getHeight() / 2);
     }
 
     public Bounds getBounds() {
@@ -100,6 +96,6 @@ public class Ball implements Bounded {
 
     @Override
     public String toString() {
-        return String.format("(%d,%d, %d)", getX(), getY(), getRadius());
+        return String.format("(%d,%d, %d, %d)", getX(), getY(), getWidth(), getHeight());
     }
 }

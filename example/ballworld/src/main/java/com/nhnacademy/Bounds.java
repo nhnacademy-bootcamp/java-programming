@@ -5,28 +5,32 @@ import java.awt.Rectangle;
 public class Bounds {
     final Rectangle rectangle;
 
+    public Bounds(int x, int y, int width, int height) {
+        rectangle = new Rectangle(x, y, width, height);
+    }
+
     public Bounds(Point location, int width, int height) {
-        rectangle = new Rectangle(location.getX() - width / 2, location.getY() - height / 2);
+        rectangle = new Rectangle(location.getX(), location.getY(), width, height);
     }
 
-    Bounds(Rectangle rectangle) {
-        this.rectangle = (Rectangle) rectangle.clone();
+    Bounds(Rectangle other) {
+        rectangle = (Rectangle) other.clone();
     }
 
-    Rectangle getRectangle() {
-        return rectangle;
+    Bounds(Bounds other) {
+        this.rectangle = new Rectangle(other.getMinX(), other.getMinY(), other.getWidth(), other.getHeight());
     }
 
     public Point getLocation() {
-        return new Point((int) rectangle.getCenterX(), (int) rectangle.getCenterY());
+        return new Point((int) rectangle.getMinX(), (int) rectangle.getMinY());
     }
 
     public void setLocation(Point location) {
-        rectangle.setLocation(location.getX() - getWidth() / 2, location.getY() - getHeight() / 2);
+        rectangle.setLocation(location.getX(), location.getY());
     }
 
     public void setLocation(int x, int y) {
-        rectangle.setLocation(x - getWidth() / 2, y - getHeight() / 2);
+        rectangle.setLocation(x, y);
     }
 
     public void translate(Vector motion) {
@@ -65,11 +69,38 @@ public class Bounds {
         return (int) rectangle.getHeight();
     }
 
-    public boolean intersects(Bounds other) {
+    public boolean isCollision(Bounds other) {
         return getRectangle().intersects(other.getRectangle());
     }
 
+    public boolean isInclude(Bounds other) {
+        Bounds intersection = intersection(other);
+
+        return other.equals(intersection);
+    }
+
     public Bounds intersection(Bounds other) {
-        return new Bounds(getRectangle().intersection(other.getRectangle()));
+        Rectangle intersection = getRectangle().intersection(other.getRectangle());
+
+        return new Bounds((int) intersection.getMinX(), (int) intersection.getMinY(),
+                (int) intersection.getWidth(), (int) intersection.getHeight());
+    }
+
+    Rectangle getRectangle() {
+        return rectangle;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return (other instanceof Bounds)
+                && (getLocation().equals(((Bounds) other).getLocation()))
+                && (getWidth() == ((Bounds) other).getWidth())
+                && (getHeight() == ((Bounds) other).getHeight());
+    }
+
+    @Override
+    public String toString() {
+        return "[" + rectangle.getX() + "," + rectangle.getY() + "," + rectangle.getWidth() + ","
+                + rectangle.getHeight() + "]";
     }
 }

@@ -2,17 +2,18 @@ package com.nhnacademy;
 
 import java.awt.Color;
 
-public class MovableBall extends PaintableBall implements Movable {
-    public static final Vector DEFAULT_MOTION = new Vector(0, 0);
+public class MovableBox extends PaintableBox implements Movable {
+    public static final int DEFAULT_DX = 0;
+    public static final int DEFAULT_DY = 0;
 
     final Vector motion = new Vector();
 
-    public MovableBall(int x, int y, int radius, Color color) {
-        super(x, y, radius, color);
+    public MovableBox(Point location, int width, int height, Color color) {
+        this(location.getX(), location.getY(), width, height, color);
     }
 
-    public MovableBall(Point location, int radius, Color color) {
-        this(location.getX(), location.getY(), radius, color);
+    public MovableBox(int x, int y, int width, int height, Color color) {
+        super(x, y, width, height, color);
     }
 
     public Vector getMotion() {

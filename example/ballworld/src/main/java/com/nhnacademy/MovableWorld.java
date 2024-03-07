@@ -1,5 +1,8 @@
 package com.nhnacademy;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class MovableWorld extends World {
     static final int DEFAULT_DT = 10;
     int moveCount;
@@ -23,22 +26,31 @@ public class MovableWorld extends World {
 
     public void move() {
         if ((getMaxMoveCount() == 0) || (getMoveCount() < getMaxMoveCount())) {
+            List<Bounded> removeList = new LinkedList<>();
+
             for (int i = 0; i < getCount(); i++) {
-                Ball ball = get(i);
-                if (ball instanceof MovableBall) {
-                    ((MovableBall) ball).move();
+                Bounded item = get(i);
+                if (item instanceof MovableBall) {
+                    ((Movable) item).move();
 
-                    if (ball instanceof BoundedBall) {
+                    if (item instanceof Bounceable) {
                         for (int j = 0; j < getCount(); j++) {
-                            Ball otherBall = get(j);
+                            Bounded other = get(j);
 
-                            if ((ball != otherBall) && (ball.getRegion().intersects(otherBall.getRegion()))) {
-                                ((BoundedBall) ball).bounce(otherBall);
-                                logger.info("ball({})와 ball({})이 충돌하였습니다.", ball.getId(), otherBall.getId());
+                            if (item != other && item.isCollision(other.getBounds())) {
+                                ((Bounceable) item).bounce(other);
+
+                                if (other instanceof Brittle) {
+                                    removeList.add(other);
+                                }
                             }
                         }
                     }
                 }
+            }
+
+            for (Bounded item : removeList) {
+                remove(item);
             }
 
             moveCount++;

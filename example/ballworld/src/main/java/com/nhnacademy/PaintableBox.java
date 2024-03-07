@@ -3,21 +3,25 @@ package com.nhnacademy;
 import java.awt.Color;
 import java.awt.Graphics;
 
-public class PaintableBall extends Ball implements Paintable {
+public class PaintableBox extends Box implements Paintable {
     public static final Color DEFAULT_COLOR = Color.BLACK;
 
     Color color;
 
-    public PaintableBall(Point location, int radius) {
-        this(location, radius, DEFAULT_COLOR);
+    public PaintableBox(Point location, int width, int height) {
+        this(location.getX(), location.getY(), width, height);
     }
 
-    public PaintableBall(Point location, int radius, Color color) {
-        this(location.getX(), location.getY(), radius, color);
+    public PaintableBox(int x, int y, int width, int height) {
+        this(x, y, width, height, DEFAULT_COLOR);
     }
 
-    public PaintableBall(int x, int y, int radius, Color color) {
-        super(x, y, radius);
+    public PaintableBox(Point location, int width, int height, Color color) {
+        this(location.getX(), location.getY(), width, height, color);
+    }
+
+    public PaintableBox(int x, int y, int width, int height, Color color) {
+        super(x, y, width, height);
 
         if (color == null) {
             throw new IllegalArgumentException();
@@ -51,7 +55,7 @@ public class PaintableBall extends Ball implements Paintable {
         Color originalColor = g.getColor();
 
         g.setColor(getColor());
-        g.fillOval(getBounds().getMinX(), getBounds().getMinY(),
+        g.fillRect(getBounds().getMinX(), getBounds().getMinY(),
                 getBounds().getWidth(), getBounds().getHeight());
         g.setColor(Color.GRAY);
         g.drawRect(getBounds().getMinX(), getBounds().getMinY(),

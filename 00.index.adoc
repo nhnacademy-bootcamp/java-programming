@@ -4,9 +4,12 @@
 
 * link:./01.introduction.adoc[01. 시작하며]
 * link:./02.graphics.adoc[02. Java Graphics]
-* link:./03.ball_world.adoc[03. Ball & World]
-* link:./04.movable_world.adoc[04. Movable World]
-* link:./05.bounded_world.adoc[05. Bounded World]
-
+* link:./03.ball_world.adoc[03. 볼 세상]
+* link:./04.movable_world.adoc[04. 움직이는 세상]
+* link:./05.bounded_world.adoc[05. 닫혀진 세상]
+* link:./06.abstract.adoc[06. 정리하기]
+* link:./07.new_object_box.adoc[07. 새로운 물체의 등장]
+* link:./08.simple_world.adoc[08. 타입 정리하기]
+* link:./09.break_bricks.adoc[09. 벽돌 깨기]
 ---
 

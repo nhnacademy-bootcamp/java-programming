@@ -1,6 +1,6 @@
 :stem: latexmath
 
-= 8. 조금 더 단순하게
+= 8. 타입 정리하기
 
 **Keyword**
 

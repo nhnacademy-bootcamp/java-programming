@@ -1,14 +1,18 @@
 package com.nhnacademy;
 
+import java.awt.Rectangle;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class Ball {
+    static int getRegionCallCount = 0;
     static int count = 0;
     int id = ++count;
     int x;
     int y;
     int radius;
+    Rectangle region;
     Logger logger = LogManager.getLogger(this.getClass().getSimpleName());
 
     public Ball(int x, int y, int radius) {
@@ -26,7 +30,7 @@ public class Ball {
         this.x = x;
         this.y = y;
         this.radius = radius;
-
+        region = new Rectangle(x - radius, y - radius, 2 * radius, 2 * radius);
         logger.trace("Ball created : {}, {}, {}", x, y, radius);
     }
 
@@ -44,14 +48,20 @@ public class Ball {
 
     void setX(int x) {
         this.x = x;
+        region.setLocation(getX() - getRadius(), getY() - getRadius());
     }
 
     void setY(int y) {
         this.y = y;
+        region.setLocation(getX() - getRadius(), getY() - getRadius());
     }
 
     public int getRadius() {
         return radius;
+    }
+
+    public Rectangle getRegion() {
+        return region;
     }
 
     @Override

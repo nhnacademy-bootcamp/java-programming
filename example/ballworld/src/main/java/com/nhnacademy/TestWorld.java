@@ -11,9 +11,10 @@ public class TestWorld {
     static final int FRAME_HEIGHT = 400;
     static final int MIN_RADIUS = 20;
     static final int MAX_RADIUS = 50;
-    static final int BALL_COUNT = 1;
+    static final int BALL_COUNT = 5;
     static final int MIN_DELTA = 10;
     static final int MAX_DELTA = 30;
+    static final int MAX_MOVE_COUNT = 0;
     static final Color[] COLOR_TABLE = {
             Color.BLACK,
             Color.RED,
@@ -45,7 +46,6 @@ public class TestWorld {
                 ball.setDX(dx);
                 ball.setDY(dy);
 
-                ball.setBounds(world.getBounds());
                 world.add(ball);
             } catch (IllegalArgumentException ignore) {
                 //
@@ -54,7 +54,7 @@ public class TestWorld {
 
         frame.setVisible(true);
 
-        world.setMaxMoveCount(0);
+        world.setMaxMoveCount(MAX_MOVE_COUNT);
         world.setDT(100);
         world.run();
     }

@@ -31,13 +31,14 @@ public class World extends JPanel {
         }
 
         for (Ball existBall : ballList) {
-            if (Math.sqrt(Math.pow((double) existBall.getX() - ball.getX(), 2)
-                    + Math.pow((double) existBall.getY() - ball.getY(), 2)) < existBall.getRadius()
-                            + ball.getRadius()) {
+            if (ball.getRegion().intersects(existBall.getRegion())) {
                 throw new IllegalArgumentException();
             }
         }
 
+        if (ball instanceof BoundedBall) {
+            ((BoundedBall) ball).setBounds(getBounds());
+        }
         ballList.add(ball);
     }
 

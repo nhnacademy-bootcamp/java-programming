@@ -30,7 +30,7 @@ public class MovableBall extends PaintableBall {
 
     public void move() {
         moveTo(getX() + getDX(), getY() + getDY());
-        logger.trace("{} : {}, {}", getId(), getX(), getY());
+        logger.trace("{} : {}, {}, {}, {}", getId(), getX(), getY(), getRegion().getX(), getRegion().getY());
     }
 
     public void moveTo(int x, int y) {

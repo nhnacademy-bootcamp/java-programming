@@ -5,7 +5,7 @@ import java.awt.Rectangle;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class Ball {
+public class Ball implements Regionable {
     static int getRegionCallCount = 0;
     static int count = 0;
     int id = ++count;

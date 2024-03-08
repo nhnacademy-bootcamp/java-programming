@@ -23,18 +23,18 @@ public class MovableWorld extends World {
 
     public void move() {
         if ((getMaxMoveCount() == 0) || (getMoveCount() < getMaxMoveCount())) {
-            for (int i = 0; i < getBallCount(); i++) {
-                Ball ball = getBall(i);
-                if (ball instanceof MovableBall) {
-                    ((MovableBall) ball).move();
+            for (int i = 0; i < getCount(); i++) {
+                Regionable object = get(i);
+                if (object instanceof Movable) {
+                    ((Movable) object).move();
 
-                    if (ball instanceof BoundedBall) {
-                        for (int j = 0; j < getBallCount(); j++) {
-                            Ball otherBall = getBall(j);
+                    if (object instanceof Bounded) {
+                        for (int j = 0; j < getCount(); j++) {
+                            Regionable other = get(j);
 
-                            if ((ball != otherBall) && (ball.getRegion().intersects(otherBall.getRegion()))) {
-                                ((BoundedBall) ball).bounce(otherBall);
-                                logger.info("ball({})와 ball({})이 충돌하였습니다.", ball.getId(), otherBall.getId());
+                            if ((object != other) && (object.getRegion().intersects(other.getRegion()))) {
+                                ((Bounded) object).bounce(other);
+                                logger.info("ball({})와 ball({})이 충돌하였습니다.", object.getId(), other.getId());
                             }
                         }
                     }

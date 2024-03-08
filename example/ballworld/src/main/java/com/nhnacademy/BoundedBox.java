@@ -3,10 +3,10 @@ package com.nhnacademy;
 import java.awt.Color;
 import java.awt.Rectangle;
 
-public class BoundedBall extends MovableBall implements Bounded {
+public class BoundedBox extends MovableBox implements Bounded {
 
-    public BoundedBall(int x, int y, int radius, Color color) {
-        super(x, y, radius, color);
+    public BoundedBox(int x, int y, int width, int height, Color color) {
+        super(x, y, width, height, color);
     }
 
     public void bounce(Regionable other) {
@@ -15,7 +15,6 @@ public class BoundedBall extends MovableBall implements Bounded {
         if ((getRegion().getHeight() != intersection.getHeight())
                 && (other.getRegion().getHeight() != intersection.getHeight())) {
             setDY(-getDY());
-
         }
 
         if ((getRegion().getWidth() != intersection.getWidth())

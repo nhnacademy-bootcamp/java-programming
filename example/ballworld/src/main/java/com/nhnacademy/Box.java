@@ -5,7 +5,7 @@ import java.awt.Rectangle;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class Box {
+public class Box implements Regionable {
     static int getRegionCallCount = 0;
     static int count = 0;
     int id = ++count;
@@ -25,7 +25,7 @@ public class Box {
         }
 
         region = new Rectangle(x - width / 2, y - height / 2, width, height);
-        logger.trace("Box created : {}, {}, {}", x, y, width, height);
+        logger.trace("Box created :{}, {}, {}, {}", x, y, width, height);
     }
 
     public int getId() {

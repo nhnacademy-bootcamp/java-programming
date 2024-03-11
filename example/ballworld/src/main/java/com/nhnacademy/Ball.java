@@ -5,10 +5,11 @@ import java.util.UUID;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class Ball implements Bounded {
+public class Ball implements Bounded, HitListener {
     final String id = UUID.randomUUID().toString();
     final Logger logger = LogManager.getLogger(this.getClass().getSimpleName());
     final Bounds bounds;
+    HitListener hitListener;
 
     public Ball(Point location, int radius) {
         this(location.getX(), location.getY(), radius);
@@ -101,5 +102,17 @@ public class Ball implements Bounded {
     @Override
     public String toString() {
         return String.format("(%d,%d, %d)", getX(), getY(), getRadius());
+    }
+
+    @Override
+    public void hit(Bounded other) {
+        if (hitListener != null) {
+            hitListener.hit(other);
+        }
+    }
+
+    @Override
+    public void setHitListener(HitListener listener) {
+        this.hitListener = listener;
     }
 }

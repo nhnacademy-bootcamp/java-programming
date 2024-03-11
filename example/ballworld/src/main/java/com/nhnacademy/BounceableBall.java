@@ -5,8 +5,12 @@ import java.util.List;
 
 public class BounceableBall extends MovableBall implements Bounceable {
 
+    public BounceableBall(int x, int y, int radius, Color color) {
+        super(x, y, radius, color);
+    }
+
     public BounceableBall(Point location, int radius, Color color) {
-        super(location, radius, color);
+        this(location.getX(), location.getY(), radius, color);
     }
 
     public void move(List<Bounded> boundedList) {

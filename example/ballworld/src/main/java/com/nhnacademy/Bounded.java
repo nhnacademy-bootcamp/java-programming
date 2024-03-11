@@ -22,4 +22,8 @@ public interface Bounded {
     public boolean isCollision(Bounds other);
 
     public boolean isInclude(Bounds other);
+
+    public void hit(Bounded other);
+
+    public void setHitListener(HitListener listener);
 }

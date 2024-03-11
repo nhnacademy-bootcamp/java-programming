@@ -21,6 +21,10 @@ public class Bounds {
         this.rectangle = new Rectangle(other.getMinX(), other.getMinY(), other.getWidth(), other.getHeight());
     }
 
+    public void set(Bounds other) {
+        rectangle.setBounds(other.getRectangle());
+    }
+
     public Point getLocation() {
         return new Point((int) rectangle.getMinX(), (int) rectangle.getMinY());
     }

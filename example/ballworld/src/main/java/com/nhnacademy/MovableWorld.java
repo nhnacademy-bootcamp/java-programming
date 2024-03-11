@@ -40,8 +40,8 @@ public class MovableWorld extends World {
                             if (item != other && item.isCollision(other.getBounds())) {
                                 ((Bounceable) item).bounce(other);
 
-                                if (other instanceof Brittle) {
-                                    removeList.add(other);
+                                if (other instanceof HitListener) {
+                                    ((HitListener) other).hit(item);
                                 }
                             }
                         }

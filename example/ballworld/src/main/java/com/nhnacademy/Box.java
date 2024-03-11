@@ -5,10 +5,11 @@ import java.util.UUID;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class Box implements Bounded {
+public class Box implements Bounded, HitListener {
     final String id = UUID.randomUUID().toString();
     final Logger logger = LogManager.getLogger(this.getClass().getSimpleName());
     final Bounds bounds;
+    HitListener hitListener;
 
     public Box(Point location, int width, int height) {
         this(location.getX(), location.getY(), width, height);
@@ -86,6 +87,10 @@ public class Box implements Bounded {
         return new Bounds(bounds);
     }
 
+    public void setBounds(Bounds bounds) {
+        this.bounds.set(bounds);
+    }
+
     public boolean isCollision(Bounds other) {
         return bounds.isCollision(other);
     }
@@ -97,5 +102,17 @@ public class Box implements Bounded {
     @Override
     public String toString() {
         return String.format("(%d,%d, %d, %d)", getX(), getY(), getWidth(), getHeight());
+    }
+
+    @Override
+    public void hit(Bounded other) {
+        if (hitListener != null) {
+            hitListener.hit(other);
+        }
+    }
+
+    @Override
+    public void setHitListener(HitListener listener) {
+        this.hitListener = listener;
     }
 }

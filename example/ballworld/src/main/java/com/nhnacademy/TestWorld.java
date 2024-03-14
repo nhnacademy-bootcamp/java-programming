@@ -65,43 +65,6 @@ public class TestWorld {
             }
         }
 
-        while (world.getCount() < FIXED_BALL_COUNT + BOUNDED_BALL_COUNT) {
-            try {
-                BoundedBall ball = new BoundedBall(random.nextInt(FRAME_WIDTH), random.nextInt(FRAME_HEIGHT),
-                        MIN_RADIUS + random.nextInt(MAX_RADIUS - MIN_RADIUS + 1),
-                        COLOR_TABLE[random.nextInt(COLOR_TABLE.length)]);
-
-                int dx = MIN_DELTA - random.nextInt(MAX_DELTA - MIN_DELTA + 1);
-                int dy = MIN_DELTA - random.nextInt(MAX_DELTA - MIN_DELTA + 1);
-
-                ball.setDX(dx);
-                ball.setDY(dy);
-
-                world.add(ball);
-            } catch (IllegalArgumentException ignore) {
-                //
-            }
-        }
-
-        while (world.getCount() < FIXED_BALL_COUNT + BOUNDED_BALL_COUNT + BOUNDED_BOX_COUNT) {
-            try {
-                BoundedBox box = new BoundedBox(random.nextInt(FRAME_WIDTH), random.nextInt(FRAME_HEIGHT),
-                        MIN_RADIUS + random.nextInt(MAX_RADIUS - MIN_RADIUS + 1),
-                        MIN_RADIUS + random.nextInt(MAX_RADIUS - MIN_RADIUS + 1),
-                        COLOR_TABLE[random.nextInt(COLOR_TABLE.length)]);
-
-                int dx = MIN_DELTA - random.nextInt(MAX_DELTA - MIN_DELTA + 1);
-                int dy = MIN_DELTA - random.nextInt(MAX_DELTA - MIN_DELTA + 1);
-
-                box.setDX(dx);
-                box.setDY(dy);
-
-                world.add(box);
-            } catch (IllegalArgumentException ignore) {
-                //
-            }
-        }
-
         frame.setVisible(true);
 
         world.setMaxMoveCount(MAX_MOVE_COUNT);

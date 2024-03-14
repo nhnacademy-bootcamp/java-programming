@@ -27,7 +27,7 @@ public class World extends JPanel {
             throw new IllegalArgumentException();
         }
 
-        Bounds area = new Bounds(getBounds());
+        // Bounds area = new Bounds(getBounds());
 
         // if (!area.isInclude(object.getBounds())) {
         // logger.error("World : {}, Object : {}", area, object.getBounds());
@@ -71,35 +71,5 @@ public class World extends JPanel {
                 ((Paintable) item).paint(g);
             }
         }
-    }
-
-    @Override
-    public void mouseClicked(MouseEvent arg0) {
-
-        MovableBall ball = new MovableBall(arg0.getX(), arg0.getY(), 50, Color.BLUE);
-        ball.setDX(-10 + random.nextInt(20));
-        ball.setDY(-10 + random.nextInt(20));
-
-        add(ball);
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent arg0) {
-        //
-    }
-
-    @Override
-    public void mouseExited(MouseEvent arg0) {
-        //
-    }
-
-    @Override
-    public void mousePressed(MouseEvent arg0) {
-        //
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent arg0) {
-        //
     }
 }

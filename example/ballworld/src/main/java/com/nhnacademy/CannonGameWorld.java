@@ -9,8 +9,10 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
-public class BreakBricksWorld extends MovableWorld implements MouseMotionListener, KeyListener, ComponentListener {
+public class CannonGameWorld extends World implements MouseMotionListener, KeyListener, ComponentListener {
     static final int WALL_THICKNESS = 200;
     static final int BAR_WIDTH = 100;
     static final int BAR_THICKNESS = 20;
@@ -19,6 +21,8 @@ public class BreakBricksWorld extends MovableWorld implements MouseMotionListene
     static final int MIN_WIDTH = WALL_THICKNESS * 2 + BAR_WIDTH;
     int blockHeight = 20;
     int blockWidth = 40;
+    int gravity = 1;
+    int windSpeed = 0;
 
     final Box leftWall = new PaintableBox(-WALL_THICKNESS / 2, BAR_THICKNESS / 2, WALL_THICKNESS,
             MIN_HEIGHT);
@@ -30,10 +34,10 @@ public class BreakBricksWorld extends MovableWorld implements MouseMotionListene
     final List<Ball> ballList = new LinkedList<>();
 
     final Color[] colors = { Color.YELLOW, Color.WHITE, Color.BLUE, Color.GREEN };
+    final ExecutorService executor = Executors.newFixedThreadPool(5);
 
-    public BreakBricksWorld() {
+    public CannonGameWorld() {
         super();
-
         setBounds(-WALL_THICKNESS, -WALL_THICKNESS, MIN_WIDTH, MIN_HEIGHT);
 
         add(leftWall);
@@ -50,22 +54,6 @@ public class BreakBricksWorld extends MovableWorld implements MouseMotionListene
         addKeyListener(this);
         addMouseMotionListener(this);
         addComponentListener(this);
-        addMouseMotionListener(new MouseMotionListener() {
-
-            @Override
-            public void mouseDragged(MouseEvent e) {
-                // TODO Auto-generated method stub
-                throw new UnsupportedOperationException("Unimplemented method 'mouseDragged'");
-            }
-
-            @Override
-            public void mouseMoved(MouseEvent e) {
-                // TODO Auto-generated method stub
-                throw new UnsupportedOperationException("Unimplemented method 'mouseMoved'");
-            }
-
-        });
-
     }
 
     public void init() {
@@ -85,11 +73,29 @@ public class BreakBricksWorld extends MovableWorld implements MouseMotionListene
     }
 
     public void start() {
-        BounceableBall ball = new BounceableBall(bar.getX(), bar.getY() - BAR_THICKNESS / 2 - 10, 10, Color.RED);
-        ball.setMotion(5, -4);
+        BounceableBall ball = new BounceableBall(40, bar.getY() - BAR_THICKNESS / 2 - 10, 10, Color.RED);
+        ball.setMotion(20, -34);
 
+        ball.addStartedActionListener(() -> {
+            super.add(ball);
+        });
+
+        ball.addMovableActionListener(() -> {
+            ball.setMotion(ball.getMotion().getDX() + windSpeed, ball.getMotion().getDY() + gravity);
+            repaint();
+        });
         add(ball);
 
+    }
+
+    @Override
+    public void add(Bounded object) {
+
+        if (object instanceof Movable) {
+            executor.submit((Movable) object);
+        } else {
+            super.add(object);
+        }
     }
 
     @Override
@@ -121,6 +127,9 @@ public class BreakBricksWorld extends MovableWorld implements MouseMotionListene
     public void keyTyped(KeyEvent event) {
         //
         logger.info("{}", event.getKeyCode());
+        if (event.getKeyCode() == 10) {
+            start();
+        }
     }
 
     @Override

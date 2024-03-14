@@ -1,6 +1,6 @@
 package com.nhnacademy;
 
-public interface Movable {
+public interface Movable extends Runnable {
 
     public Vector getMotion();
 
@@ -8,9 +8,19 @@ public interface Movable {
 
     public void setMotion(Vector newMotion);
 
+    public void setDT(int dt);
+
+    public int getDT();
+
     public void move();
 
     public void move(Vector motion);
 
     public void moveTo(Point location);
+
+    public default void addStartedActionListener(StartedActionListener listener) {
+    }
+
+    public default void addMovableActionListener(MovableActionListener listener) {
+    }
 }

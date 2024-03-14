@@ -7,6 +7,8 @@ public class MovableBox extends PaintableBox implements Movable {
     public static final int DEFAULT_DY = 0;
 
     final Vector motion = new Vector();
+    boolean stopped = true;
+    int dt = 100;
 
     public MovableBox(Point location, int width, int height, Color color) {
         this(location.getX(), location.getY(), width, height, color);
@@ -28,6 +30,14 @@ public class MovableBox extends PaintableBox implements Movable {
         motion.set(newMotion);
     }
 
+    public void setDT(int dt) {
+        this.dt = dt;
+    }
+
+    public int getDT() {
+        return dt;
+    }
+
     public void move() {
         move(motion);
     }
@@ -40,5 +50,18 @@ public class MovableBox extends PaintableBox implements Movable {
 
     public void moveTo(Point location) {
         setLocation(location);
+    }
+
+    public void run() {
+        stopped = false;
+        while (!stopped) {
+            move();
+
+            try {
+                Thread.sleep(dt);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        }
     }
 }

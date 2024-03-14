@@ -28,6 +28,10 @@ Movable은 스스로 움직일 수 있는 type으로서, 이에 필요한 함수
 ** 단위 시간을 돌려 준다.
 * void setDT(int dt)
 ** 단위 시간을 설정한다.
+* void addStartedActionListener(StartedActionListener listener)
+**
+* default void addMovableActionListener(MovableActionListener listener)
+**
 * void start()
 ** 움직임 시작한다
 * void stop()

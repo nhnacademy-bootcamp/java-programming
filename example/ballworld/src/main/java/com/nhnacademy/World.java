@@ -1,7 +1,6 @@
 package com.nhnacademy;
 
 import java.awt.Graphics;
-import java.util.List;
 import java.util.LinkedList;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -9,73 +8,67 @@ import java.awt.Color;
 import java.util.Random;
 
 import javax.swing.JPanel;
+import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class World extends JPanel implements MouseListener {
-    List<Regionable> regionableList = new LinkedList<>();
-    Logger logger = LogManager.getLogger(this.getClass().getSimpleName());
-    Random random = new Random();
-
-    public World() {
-        super();
-
-        addMouseListener(this);
-
-    }
+public class World extends JPanel {
+    final List<Bounded> boundedList = new LinkedList<>();
+    final Logger logger = LogManager.getLogger(this.getClass().getSimpleName());
 
     /**
      *
      * @param object
      * @throw IllegalArgumentException 공간을 벗어나거나, null인 경우, 볼간 충돌된 경우
      */
-    public void add(Regionable object) {
+    public void add(Bounded object) {
         if (object == null) {
             throw new IllegalArgumentException();
         }
 
-        // if ((object.getX() - object.getRegion().getWidth() / 2 < 0)
-        // || (object.getX() + object.getRegion().getWidth() / 2 > getWidth())
-        // || (object.getRegion().getMinY() < 0)
-        // || (object.getRegion().getMaxY() > getHeight())) {
+        Bounds area = new Bounds(getBounds());
+
+        // if (!area.isInclude(object.getBounds())) {
+        // logger.error("World : {}, Object : {}", area, object.getBounds());
         // throw new IllegalArgumentException();
         // }
 
-        for (Regionable item : regionableList) {
-            if (((object instanceof Bounded) || (item instanceof Bounded))
-                    && (object.getRegion().intersects(item.getRegion()))) {
-                throw new IllegalArgumentException();
-            }
-        }
+        // for (Bounded item : boundedList) {
+        // if ((item instanceof Bounceable) && (object instanceof Bounceable)
+        // && (object.isCollision(item.getBounds()))) {
+        // throw new IllegalArgumentException();
+        // }
+        // }
 
-        regionableList.add(object);
+        boundedList.add(object);
+
     }
 
-    public void remove(Regionable object) {
-        regionableList.remove(object);
+    public void remove(Bounded item) {
+        boundedList.remove(item);
     }
 
     @Override
     public void remove(int index) {
-        regionableList.remove(index);
+        boundedList.remove(index);
     }
 
     public int getCount() {
-        return regionableList.size();
+        return boundedList.size();
     }
 
-    public Regionable get(int index) {
-        return regionableList.get(index);
+    public Bounded get(int index) {
+        return boundedList.get(index);
     }
 
     @Override
     public void paint(Graphics g) {
         super.paint(g);
 
-        for (Regionable object : regionableList) {
-            if (object instanceof Paintable) {
-                ((Paintable) object).paint(g);
+        for (Bounded item : boundedList) {
+            if (item instanceof Paintable) {
+                ((Paintable) item).paint(g);
             }
         }
     }

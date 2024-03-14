@@ -13,12 +13,11 @@ import org.junit.jupiter.params.provider.MethodSource;
 public class TestBall {
     @ParameterizedTest
     @MethodSource("constructorProvider")
-    void testConstructor(int x, int y, int radius) {
+    void testConstructor(Point location, int radius) {
         assertDoesNotThrow(() -> {
-            Ball ball = new Ball(x, y, radius);
+            Ball ball = new Ball(location, radius);
 
-            assertEquals(x, ball.getX());
-            assertEquals(y, ball.getY());
+            assertEquals(location, ball.getLocation());
             assertEquals(radius, ball.getRadius());
         });
     }

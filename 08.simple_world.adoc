@@ -14,7 +14,7 @@ World class 내에서 ball과 box를 구분해야 할 곳은 어디인가?
 
 이것만 일반화할 수 있다면 문제가 쉽게 해결되지 않을까?
 
-== 8-1. Bounded 인터페이스
+== 8-1. Regionable 인터페이스
 
 World class는 출력되는 오브젝트들은 모두 일정한 영역을 갖는다. 앞서 정의한 ball이나 box에서도 getRegion 함수를 이용해 영역 확인이 가능하다.
 
@@ -50,21 +50,15 @@ World class는 출력되는 오브젝트들은 모두 일정한 영역을 갖는
 * public int getMaxY();
 ** 영역의 최대 Y 좌표
 
-* Bounds getBounds()
-** 오브젝트를 둘러 쌀수 있는 최소한의 사격형
-
-* Bounds moveTo(int x, int y)
-** 특정 위치로 이동
-
-* public boolean isCollision(Bounded other);
+* public boolean intersects(Regionable other);
 ** 영역간 교차 영역 존재 여부
 
-* public Bounded intersection(Bounded other);
+* public Regionable intersection(Regionable other);
 ** 영역간 교차 영역
 
 ---
 
-=== Exam-8-1-1. Bounded 인터페이스를 선언하고, World class에는 Bounded 오브젝트를 받아서 관리할 수 있도록 수정하라[[Exam-8-1-1,"Exam-8-1-1"]]
+=== Exam-8-1-1. Regionable 인터페이스를 선언하고, World class에는 Regionable 오브젝트를 받아서 관리할 수 있도록 수정하라[[Exam-8-1-1,"Exam-8-1-1"]]
 
 {empty} +
 
@@ -72,7 +66,7 @@ World class는 출력되는 오브젝트들은 모두 일정한 영역을 갖는
 
 *link:../src/main/java/com/nhnacademy/World.java[class World]
 * 어떠한 문제점이 있는가?
-* 해결 방법은? Bounded에 그리기 함수 추가?
+* 해결 방법은? Regionable에 그리기 함수 추가?
 
 ---
 
@@ -88,11 +82,8 @@ World class는 도형을 받아서 화면에 출력하는 작업을 한다. 따�
 
 ==== Method
 
-* Color getColor()
+* void getColor()
 ** 색 얻어 오기
-
-* void setColor(Color color)
-** 색 변경한다.
 
 * void paint(Graphics g)
 ** 그리기
@@ -160,20 +151,26 @@ image::./image/figure35.png"[title="Exam-26",align=center]
 
 * 단, World, MovableWorld, BoundedWorld의 수정은 없어야 한다.
 
-== 8-5. Bounceable 인터페이스
+== 8-5. Bounded 인터페이스
 
 === 정의
 
-* BounceableBall, BounceableBox 그리고 BounceableWorld?? Bounceable!
+* BoundedBall, BoundedBox 그리고 BoundedWorld?? Bounded!
 
 ==== Method
 
-* void bounce(Bounds bounds)
-* 주어진 영역과 충돌할 경우, 튕긴다.
+* Regionable getBounds()
+** 경계 정보
+* void setBounds(Regionable bounds)
+** 경계 정보 설정
+* boolean isOutOfBounds(Regionable bounds)
+** 이동 후 경계를 벗어났는지 확인
+* void bounce()
+* 경계를 벗어 경우 벽에서 튕김
 
 ---
 
-== Exam-8-5-1. MoveableWorld를 수정하여, Bounceable 타입을 이동 후 충돌을 확인하고, 충돌일 경우 튕기도록 처라하라.
+== Exam-8-5-1. BoundedBall과 BoundedWorld도 Bounded 인터페이스를 선언해 해결하는 것과 같은 방법으로 해결하라
 
 ---
 

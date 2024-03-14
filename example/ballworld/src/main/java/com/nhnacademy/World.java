@@ -24,17 +24,18 @@ public class World extends JPanel {
         }
 
         Bounds area = new Bounds(getBounds());
-        if (!area.isInclude(object.getBounds())) {
-            logger.error("World : {}, Object : {}", area, object.getBounds());
-            throw new IllegalArgumentException();
-        }
 
-        for (Bounded item : boundedList) {
-            if ((item instanceof Bounceable) && (object instanceof Bounceable)
-                    && (object.isCollision(item.getBounds()))) {
-                throw new IllegalArgumentException();
-            }
-        }
+        // if (!area.isInclude(object.getBounds())) {
+        // logger.error("World : {}, Object : {}", area, object.getBounds());
+        // throw new IllegalArgumentException();
+        // }
+
+        // for (Bounded item : boundedList) {
+        // if ((item instanceof Bounceable) && (object instanceof Bounceable)
+        // && (object.isCollision(item.getBounds()))) {
+        // throw new IllegalArgumentException();
+        // }
+        // }
 
         boundedList.add(object);
 

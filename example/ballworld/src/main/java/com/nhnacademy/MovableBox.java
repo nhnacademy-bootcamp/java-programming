@@ -50,7 +50,7 @@ public class MovableBox extends PaintableBox implements Movable {
         setLocation(origin);
 
         if (movedActionListener != null) {
-            movedActionListener.action(this);
+            movedActionListener.action();
         }
     }
 
@@ -58,7 +58,7 @@ public class MovableBox extends PaintableBox implements Movable {
         setLocation(location);
 
         if (movedActionListener != null) {
-            movedActionListener.action(this);
+            movedActionListener.action();
         }
     }
 
@@ -78,7 +78,7 @@ public class MovableBox extends PaintableBox implements Movable {
         stopped = false;
 
         if (startedActionListener != null) {
-            startedActionListener.action(this);
+            startedActionListener.action();
         }
 
         while (!stopped) {

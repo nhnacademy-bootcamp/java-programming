@@ -1,5 +1,5 @@
 package com.nhnacademy;
 
 public interface StartedActionListener {
-    public void action(Movable object);
+    public void action();
 }

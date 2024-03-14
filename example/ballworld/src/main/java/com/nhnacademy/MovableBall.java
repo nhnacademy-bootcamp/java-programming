@@ -49,7 +49,7 @@ public class MovableBall extends PaintableBall implements Movable {
         setLocation(origin);
 
         if (movedActionListener != null) {
-            movedActionListener.action(this);
+            movedActionListener.action();
         }
     }
 
@@ -57,7 +57,7 @@ public class MovableBall extends PaintableBall implements Movable {
         setLocation(location);
 
         if (movedActionListener != null) {
-            movedActionListener.action(this);
+            movedActionListener.action();
         }
     }
 
@@ -77,7 +77,7 @@ public class MovableBall extends PaintableBall implements Movable {
         stopped = false;
 
         if (startedActionListener != null) {
-            startedActionListener.action(this);
+            startedActionListener.action();
         }
 
         while (!stopped) {

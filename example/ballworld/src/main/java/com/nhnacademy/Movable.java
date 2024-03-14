@@ -18,6 +18,8 @@ public interface Movable extends Runnable {
 
     public long getDT();
 
+    public void stop();
+
     public default void addStartedActionListener(StartedActionListener listener) {
 
     }
